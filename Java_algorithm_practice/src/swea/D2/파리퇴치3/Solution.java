@@ -1,4 +1,4 @@
-package swea.파리퇴치3;
+package swea.D2.파리퇴치3;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package swea.두개의문자열;
+package swea.D2.두개의문자열;
 import java.util.*;
 import java.io.*;
 

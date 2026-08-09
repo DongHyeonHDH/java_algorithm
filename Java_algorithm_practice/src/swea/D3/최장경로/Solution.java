@@ -1,4 +1,4 @@
-package swea.최장경로;
+package swea.D3.최장경로;
 
 import java.io.BufferedReader;
 import java.io.IOException;

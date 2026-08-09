@@ -1,4 +1,4 @@
-package swea.비상탈출;
+package swea.D2.비상탈출;
 
 import java.io.BufferedReader;
 import java.io.IOException;

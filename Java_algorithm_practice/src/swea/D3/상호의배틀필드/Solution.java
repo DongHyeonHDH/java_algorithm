@@ -1,4 +1,4 @@
-package swea.상호의배틀필드;
+package swea.D3.상호의배틀필드;
 import java.util.*;
 import java.io.*;
 

@@ -1,4 +1,4 @@
-package swea.규영이와인영이의카드게임;
+package swea.D3.규영이와인영이의카드게임;
 import java.io.*;
 import java.util.*;
 public class Solution {

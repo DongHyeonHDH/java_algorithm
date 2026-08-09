@@ -1,4 +1,4 @@
-package swea.백만장자프로젝트;
+package swea.D2.백만장자프로젝트;
 import java.io.*;
 import java.util.*;
 

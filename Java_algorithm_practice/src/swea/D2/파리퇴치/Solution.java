@@ -1,4 +1,4 @@
-package swea.파리퇴치;
+package swea.D2.파리퇴치;
 import java.util.*;
 import java.io.*;
 
