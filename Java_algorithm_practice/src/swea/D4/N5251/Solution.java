@@ -71,6 +71,11 @@ public class Solution{
         }
     }
     public static void main(String[] args) throws IOException{
+        Runtime runtime = Runtime.getRuntime();
+        runtime.gc();
+        long memoryBefore = runtime.totalMemory() - runtime.freeMemory();
+
+        long startTime = System.nanoTime();
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(br.readLine());
         
@@ -93,5 +98,12 @@ public class Solution{
             dijkstra(0);
 
         }
+
+        long endTime = System.nanoTime();
+
+        long memoryAfter = runtime.totalMemory() - runtime.freeMemory();
+
+        System.out.println("실행 시간: " + (endTime - startTime) / 1_000_000.0 + " ms");
+        System.out.println("메모리 사용량: " + (memoryAfter - memoryBefore) / 1024.0 / 1024.0 + " MB");
     }
 }

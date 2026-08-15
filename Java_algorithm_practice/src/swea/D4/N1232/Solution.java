@@ -5,8 +5,7 @@ public class Solution{
     
     static Node[] tree;
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-    
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));    
         StringBuilder sb =new StringBuilder();
 
         for(int t=1; t<=10; t++){
