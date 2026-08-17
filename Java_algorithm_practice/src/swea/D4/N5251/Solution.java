@@ -82,7 +82,7 @@ public class Solution{
         for(int t=1; t<=T; t++){
             StringTokenizer st = new StringTokenizer(br.readLine());
             int N = Integer.parseInt(st.nextToken());
-            int E = Integer.parseInt(st.nextToken());
+            // int E = Integer.parseInt(st.nextToken());
 
             for(int i =0; i<N; i++){
                 st = new StringTokenizer(br.readLine());

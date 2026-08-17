@@ -1,4 +1,4 @@
-package jungol.gold;
+package jungol.gold.최소신장트리;
 
 import java.util.*;
 import java.io.*;
@@ -8,9 +8,7 @@ public class J1060{
     static boolean[] visited;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine()); 
-        int v = 0;
-        int e = 0;
+        int N = Integer.parseInt(br.readLine());         
         int[][] schools = new int[N][N];
         
         graph = new ArrayList[N];

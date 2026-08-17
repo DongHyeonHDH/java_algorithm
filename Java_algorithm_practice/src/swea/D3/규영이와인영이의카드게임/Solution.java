@@ -18,7 +18,7 @@ public class Solution {
         LinkedList<Integer> wholeCard = new LinkedList<>();
 
         for(int t = 1; t<=T; t++){
-            StringTokenizer st = new StringTokenizer(br.readLine()); 
+            // StringTokenizer st = new StringTokenizer(br.readLine()); 
             for(int i =1; i<=18; i++){
                wholeCard.add(i);
             }
