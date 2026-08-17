@@ -1,9 +1,10 @@
+package swea.D3.NQueen;
 import java.util.*;
 import java.io.*;
 
 public class Solution{
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
 
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int T = Integer.parseInt(br.readLine());
