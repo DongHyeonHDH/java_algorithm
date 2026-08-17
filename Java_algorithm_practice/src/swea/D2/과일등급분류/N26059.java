@@ -28,7 +28,6 @@ public class N26059 {
             }
 
             Arrays.sort(w);
-
             int answer = Integer.MAX_VALUE;
 
             
