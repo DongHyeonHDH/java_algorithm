@@ -1,42 +1,34 @@
-package J1335;
+package J3560;
+
 import java.io.*;
 import java.util.*;
 
-public class J1335 {
+public class J3560 {
 	
 	static boolean[][] gameMap;
-	static int blue = 0;
-	static int white = 0;
 	static int N;
+	static StringBuilder sb = new StringBuilder();
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringBuilder sb = new StringBuilder();
 		N = Integer.parseInt(br.readLine());
-		
-		//0이 하얀색
-		//1이 파란색
 		int temp = 0;
 		gameMap = new boolean[N][N];
+		
 		for(int i = 0; i<N; i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			for(int j = 0; j<N; j++) {
 				temp = Integer.parseInt(st.nextToken());
 				if(temp == 1) {
 					gameMap[i][j] = true; 
-				}
+				}		
 			}
+			
 		}
-		
-		sumPaper(0,N,0,N);
-		
-		sb.append(white)
-			.append('\n')
-			.append(blue);
+		dfs(0,N,0,N);
 		
 		System.out.println(sb);
 	}
 	
-	//구간별 blue, white 판별하는 함수
 	static boolean req(int rowStart, int colStart, int rowEnd, int colEnd) {
 		int res = 0;
 		for(int i = rowStart; i< rowEnd; i++) {
@@ -51,18 +43,19 @@ public class J1335 {
 		int comp = (colStart-colEnd) * (rowStart-rowEnd);
 		
 		if(comp == res) {
-			blue += 1;
+			sb.append(1);
 			return true;
 		}
 		if(res == 0) {
-			white += 1;
+			sb.append(0);
 			return true;
 		}
 		
+		sb.append('X');
 		return false;
-	}	
+	}
 	
-	static void sumPaper(int rowStart, int rowEnd, int colStart, int colEnd) {
+	static void dfs(int rowStart, int rowEnd, int colStart, int colEnd) {
 		if (req(rowStart, colStart, rowEnd, colEnd)) {
 	        return;
 	    }
@@ -70,10 +63,9 @@ public class J1335 {
 	    int rowMid = (rowStart + rowEnd) / 2;
 	    int colMid = (colStart + colEnd) / 2;
 
-	    sumPaper(rowStart, rowMid, colStart, colMid);
-	    sumPaper(rowStart, rowMid, colMid, colEnd);
-	    sumPaper(rowMid, rowEnd, colStart, colMid);
-	    sumPaper(rowMid, rowEnd, colMid, colEnd);
-		
+	    dfs(rowStart, rowMid, colStart, colMid);
+	    dfs(rowStart, rowMid, colMid, colEnd);
+	    dfs(rowMid, rowEnd, colStart, colMid);
+	    dfs(rowMid, rowEnd, colMid, colEnd);
 	}
 }
