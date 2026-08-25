@@ -32,7 +32,7 @@ public class N5656 {
 				}
 			}
 			
-			System.out.println();
+			
 			
 //			Node nd = new Node(0,0, gameMap[0][0]);
 //			breakBricks(nd);
@@ -53,7 +53,6 @@ public class N5656 {
 	static void breakBricks(Node start, int[][] map) {
 
 	    Deque<Node> queue = new ArrayDeque<>();
-
 	    queue.add(start);
 
 	    // ★ 최초 벽돌 반드시 제거
@@ -281,10 +280,8 @@ public class N5656 {
 
 	        // 1. 벽돌 폭발
 	        breakBricks(start, nextMap);
-
 	        // 2. 중력 적용
 	        gravity(nextMap);
-
 	        // 3. 다음 구슬
 	        findBricks(count + 1, nextMap);
 	    }
@@ -316,13 +313,13 @@ public class N5656 {
 //	        copy[i] = map[i].clone();
 //	    }
 //	    
-////		for(int i = 0; i< H; i++) {
-////			for(int j = 0; j< W; j++) {
-////				System.out.print(" "+map[i][j]);
-////			}
-////			System.out.println();
-////		}
-////		System.out.println();
+//		for(int i = 0; i< H; i++) {
+//			for(int j = 0; j< W; j++) {
+//				System.out.print(" "+map[i][j]);
+//			}
+//			System.out.println();
+//		}
+//		System.out.println();
 //		
 //		
 //		return copy;
@@ -331,16 +328,13 @@ public class N5656 {
 	static void gravity(int[][] map) {
 
 	    for (int col = 0; col < W; col++) {
-
 	        int bottom = H - 1;
-
 	        for (int row = H - 1; row >= 0; row--) {
 
 	            if (map[row][col] > 0) {
 
 	                int temp = map[row][col];
 	                map[row][col] = 0;
-
 	                map[bottom][col] = temp;
 
 	                bottom--;
