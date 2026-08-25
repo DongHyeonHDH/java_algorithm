@@ -3,52 +3,64 @@ import java.io.*;
 import java.util.*;
 
 public class J1053 {
-	static long[] arr;
 	
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		int arrSize = Integer.MAX_VALUE;
-		arrSize = arrSize/10;
-		arr = new long[arrSize]; 
-		arr[0] =0;
-		arr[1] =1;
-		int input = 0;
-		long res = 0;
 		
-		for(int i = 0; i< arrSize/10; i++) {
-			arr[i] = pibo(i);
-			System.out.print(" "+ arr[i]);
-		}
-		System.out.println();
+		long[][] A = {
+				{1,1},
+				{1,0}
+		};
+		
 		
 		while(true) {
-			input = Integer.parseInt(br.readLine());
+			int input = Integer.parseInt(br.readLine());
 			if(input == -1) {
 				break;
-			}
-			res = arr[input];
-			if(res > 10000) {
-				res = res % 10000;
-			}
+			}		
+			if (input == 0) {
+                sb.append(0).append('\n');
+                continue;
+            }
+			long[][] result = power(A,input);
+			long res = result[0][1];
 			sb.append(res)
 			.append('\n');
-		}
-		
+		}		
 		System.out.println(sb);
 		
+	}	
+	
+	static long[][] matrixMul(long[][] arr1, long[][] arr2) {
+		long[][] res = new long[2][2];
+		
+		for(int i =0; i<2; i++) {
+			for(int j = 0; j<2; j++) {
+				for(int k =0; k<2; k++) {
+					
+					res[i][j] += arr1[i][k] * arr2[k][j];
+					res[i][j] %= 10000;
+				}
+			}
+		}
+		return res;
 	}
 	
-	static long pibo(int idx) {		
-		if(idx == 0) {
-			return 0;
-		}
+	static long[][] power(long[][] A, long n) {
 		
-		if(idx == 1) {
-			return 1;
-		}
-		
-		return pibo(idx-1) + pibo(idx-2);
+	    if (n == 1) {
+	        return A;
+	    }
+
+	    long[][] half = power(A, n / 2);
+	    long[][] result = matrixMul(half, half);
+
+	    if (n % 2 == 1) {
+	        result = matrixMul(result, A);
+	    }
+
+	    return result;
 	}
 	
 	
