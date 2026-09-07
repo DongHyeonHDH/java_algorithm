@@ -2,7 +2,7 @@ package N1767;
 import java.io.*;
 import java.util.*;
 public class N1767 {
-//	static boolean[][] visited;
+
 	static int[][] map;
 	static boolean[] enableCore;
 	static int[] coreX = new int[12];
@@ -23,7 +23,7 @@ public class N1767 {
 		for(int tc =1; tc<=T; tc++) {
 			N = Integer.parseInt(br.readLine());
 			map = new int[N][N];
-//			visited = new boolean[N][N];
+
 			coreCount = 0;
 			
 			//입력 값 받기
@@ -33,7 +33,7 @@ public class N1767 {
 					int temp = Integer.parseInt(st.nextToken());
 					if(temp == 1) {
 						map[i][j] = 2;
-//						visited[i][j] = true;
+
 						// 외곽이 아닌 코어만 DFS 대상으로 해야한다.
 					    if(i != 0 && i != N-1 && j != 0 && j != N-1) {
 					        coreX[coreCount] = i;
