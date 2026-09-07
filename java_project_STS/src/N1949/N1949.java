@@ -80,8 +80,8 @@ public class N1949 {
 			//k 적용, 함수로 나눌지 생각
 			//이거 언제 원복시켜주지?
 			//--------------------------
-			if((gameMap[x][y] - K) < gameMap[node.x][node.y] 
-				&& gameMap[x][y] >= gameMap[node.x][node.y]
+			if((gameMap[x][y] - K) <= gameMap[node.x][node.y] 
+				&& gameMap[x][y] > gameMap[node.x][node.y]
 				&& kflag
 			) {				
 				kflag = false;
@@ -92,6 +92,10 @@ public class N1949 {
 					for(int l =0; l< 4; l++){
 						int kx = x+dx[l];
 						int ky = y+dy[l];
+						
+						if(kx<0 || kx>=N || ky<0 || ky>=N) {
+							continue;
+						}
 						
 						if(gameMap[x][y] - k < gameMap[kx][ky]) {
 							kpoint++;
