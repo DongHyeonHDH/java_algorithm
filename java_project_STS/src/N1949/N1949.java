@@ -5,9 +5,10 @@ import java.util.*;
 public class N1949 {
 	static int[][] gameMap;
 	static boolean[][] visited;
-	static Node[] startNode = new Node[5];	
-	static int N,K,distanceMax;
-	static boolean kflag;
+	static boolean[][] kvisited;
+	static int[] startX = new int[5];
+	static int[] startY = new int[5];
+	static int N,K,distanceMax;	
 		
 	static int[] dx = {0,0,-1,1};
 	static int[] dy = {1,-1,0,0};
@@ -20,14 +21,13 @@ public class N1949 {
 			StringTokenizer st = new StringTokenizer(br.readLine());
 			N = Integer.parseInt(st.nextToken());
 			K = Integer.parseInt(st.nextToken());
-			distanceMax = 0;
-			kflag = true;
+			distanceMax = 0;			
 			
 			int maxHeight = 0;
 			int cnt = 0;
 			gameMap = new int[N][N];
 			visited = new boolean[N][N];		
-			
+			kvisited = new boolean[N][N];
 			//입력값 삽입 및 최대높이 저장
 			for(int i = 0; i<N; i++) {
 				st = new StringTokenizer(br.readLine());
@@ -41,84 +41,62 @@ public class N1949 {
 			for(int i = 0; i<N; i++) {				
 				for(int j = 0; j<N; j++) {
 					if(gameMap[i][j] == maxHeight) {
-						startNode[cnt++] = new Node(i,j, gameMap[i][j]); 
+						startX[cnt] = i;
+						startY[cnt++] = j;
 					}
 				}
 			}			
 			
 			
 			for(int i = 0; i<cnt; i++) {
-				dfs(startNode[i], 0);
+				visited[startX[i]][startY[i]] = true;
+				dfs(startX[i], startY[i], 1, false);
+				visited[startX[i]][startY[i]] = false;
 			}
 			sb.append("#")
 			.append(tc)
 			.append(" ")
 			.append(distanceMax)
+			.append("\n")
 			;
 		}
 		System.out.println(sb);
 	}	
 	
-	//
-	static void dfs(Node node, int distance) {
-		//언제 원복을 해야할까? 해야할 시점을 잡지 못한다면 안하자
-		//k 시점을 어떻게 해?
+	
+	
+
+	static void dfs(int x, int y, int length, boolean usedK) {
+		distanceMax = Math.max(distanceMax, length);
 		
-		if(distance > distanceMax) {
-			distanceMax = distance;
-		}
-		
-		//길찾기 및 접근
-		for(int i =0; i< 4; i++) {
-			int x = node.x+dx[i];
-			int y = node.y+dy[i];
+		for(int d = 0; d< 4; d++) {
+			int nx = x  + dx[d];
+			int ny = y  + dy[d];
 			
-			if(x<0 || x>=N || y<0 || y>=N) {
+			if(nx<0 || nx>=N || ny<0 || ny>=N || visited[nx][ny]) {
 				continue;
 			}
+			// 이동
+			if (gameMap[nx][ny] < gameMap[x][y]) {
+	            visited[nx][ny] = true;
+	            dfs(nx, ny, length + 1, usedK);
+	            visited[nx][ny] = false;
+	        }
 			
-			//k 적용, 함수로 나눌지 생각
-			//이거 언제 원복시켜주지?
-			//--------------------------
-			if((gameMap[x][y] - K) <= gameMap[node.x][node.y] 
-				&& gameMap[x][y] > gameMap[node.x][node.y]
-				&& kflag
-			) {				
-				kflag = false;
-				int kMax = 0;
-				//얼만큼 깎을지 판단
-				for(int k = 1; k<=K; k++) {
-					int kpoint = 0;
-					for(int l =0; l< 4; l++){
-						int kx = x+dx[l];
-						int ky = y+dy[l];
-						
-						if(kx<0 || kx>=N || ky<0 || ky>=N) {
-							continue;
-						}
-						
-						if(gameMap[x][y] - k < gameMap[kx][ky]) {
-							kpoint++;
-						}
-					}
-					//어느정도 줄여야 할까?
-					if(kMax < k) {
-						kMax = k;
-					}
+			else if(!usedK) {
+				//K로 깎아서 이동 가능한지 판단
+				if(gameMap[nx][ny] - gameMap[x][y] +1 <= K) {
+					int original = gameMap[nx][ny];
+					gameMap[nx][ny] = gameMap[x][y] - 1;
+					
+					visited[nx][ny] = true;
+					dfs(nx, ny , length +1, true);
+					visited[nx][ny] = false;
+					
+					gameMap[nx][ny] = original;
 				}				
-				gameMap[x][y] -= kMax;
-			}
-				
-//			----------------------
-			if(gameMap[x][y] < node.height && !visited[x][y] ) {
-				Node cur = new Node(x,y,gameMap[x][y]);
-				visited[x][y] = true;
-				dfs(cur, distance + 1);
-				visited[x][y] = false;
 			}
 		}
-				
-		
 	}
 	
 	static class Node{
