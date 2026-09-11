@@ -150,8 +150,7 @@ public class N5644 {
 		//a가 겹치는 AC 위에 있는 경우
 		if(Integer.bitCount(gameMap[ax][ay]) > 2) {
 			int bit = gameMap[ax][ay] & gameMap[bx][by];
-			int index = Integer.numberOfTrailingZeros(bit);
-			
+			int index = Integer.numberOfTrailingZeros(bit);			
 			
 		}
 		//b가 겹치는 AC 위에 있는 경우
