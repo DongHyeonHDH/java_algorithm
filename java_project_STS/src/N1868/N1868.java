@@ -48,54 +48,84 @@ public class N1868 {
 						startPoint.add(new Node(i,j));
 					}
 				}
-			}
-			
-			for(int i = 0; i< N; i++) {				
-				for(int j = 0; j< N; j++) {
-					System.out.print(" "+ map[i][j]);
-				}
-				System.out.println();
-			}
+			}					
 			
 			//시작지점에서 0의 터짐을 수행
 			click += boom(startPoint, N);
 			
 			//터짐이 끝나면 빈곳을 체크한다.
-			click += checking();
+			click += checking(N);
 			
 			sb.append("#").append(tc).append(" ").append(click).append("\n");
 		}
 		System.out.println(sb);
 	}
 	
-	//터짐을 수행
+	//터짐을 수행, 0에서는 다 적용되어 있어야 한다.
 	static int boom(List<Node> st, int N) {		
-		int cnt = st.size();
+		int cnt = st.size();		
+		int res =0;				
 		
-		for(int i =0; i< cnt; i++) {
+		for(int i =0; i< cnt; i++) {			
 			//팔방향 탐색을 통해 0을 찾고 시행한다.
-			Node cur = st.get(i);
+			Node cur = st.get(i);									
 			
 			//이미 터진 0인 경우 continue
-			if(checked[cur.x][cur.y]) continue;
+			if (checked[cur.x][cur.y]){
+				continue;
+			}
+			//안 터진 0에 관해 bfs 수행
+			else {
+				Queue<Node> q = new ArrayDeque<>();
+				res += 1;
+				checked[cur.x][cur.y] = true; 
+				q.add(cur);			
 			
-			for(int k = 0; k< 8; k++) {
-				int r = cur.x+dr[k];
-				int c = cur.y+dc[k];
-				
-				if(r <0 || r>=N || c <0 || c>=N) continue;
-				
-				checked[r][c] = true;
-				
-				if(map[r][c] == 0) {} 
+			 
+			
+				while(!q.isEmpty()) {
+					Node nd = q.poll();
+					
+					//BFS에서 꺼낼때 방문처리하고 넣을때 방문해주는 것의 차이가 이렇게 심하게 나는 이유가 뭘까?
+					//그 노드를 꺼내기 전에 노드를 중복으로 들어가서 체킹을 시도하기 때문이다.
+					for(int k = 0; k< 8; k++) {
+						int r = nd.x+dr[k];
+						int c = nd.y+dc[k];
+						
+						if(r <0 || r>=N || c <0 || c>=N) continue;					
+						
+												
+						
+						if(map[r][c] == 0 && !checked[r][c]) {
+							q.add(new Node(r,c));
+							checked[r][c] = true;
+						}
+						else {
+							checked[r][c] = true;
+						}					
+					}
+				}
 			}
 		}
 		
-		return 0;
+		
+			
+		return res;
 	}
 	
-	static int checking() {
+	static int checking(int N) {
+		int res = 0;
+		for(int i = 0; i<N; i++) {
+			for(int j = 0; j<N; j++) {
+				if(map[i][j] != -1 && !checked[i][j]) {
+					checked[i][j] = true;
+					res += 1;
+				}
+			}
+		}	
+
 		
+		return res;
 	}
 	
 	static class Node{
