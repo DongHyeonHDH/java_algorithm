@@ -18,7 +18,7 @@ public class B17472 {
 	//kruskal 용 
 	static int[] parent;
 	static int[] rank;
-	static boolean[] visited;
+	
 	
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -73,9 +73,7 @@ public class B17472 {
 		for(int i = 2; i < parent.length; i++) {
 			parent[i] = i;
 		}
-		rank = new int[islandCount+1];
-		visited = new boolean[islandCount+1];
-		
+		rank = new int[islandCount+1];	
 		Collections.sort(edge);
 		
 //		for(Edge e : edge) {	
