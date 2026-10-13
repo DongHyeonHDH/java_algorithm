@@ -66,14 +66,11 @@ public class N7206 {
 	static List<StNode> splitNumber(StNode stnode) {
 
 	    Set<Integer> result = new HashSet<>();
-
-	    boolean[] cut =
-	            new boolean[stnode.str.length() - 1];
+	    boolean[] cut = new boolean[stnode.str.length() - 1];
 
 	    dfs(stnode.str, 0, cut, 0, result);
 
 	    List<StNode> list = new ArrayList<>();
-
 	    for (int num : result) {
 	        list.add(
 	            new StNode(
@@ -89,15 +86,13 @@ public class N7206 {
 	static void dfs(String number, int idx, boolean[] cut,
         int cutCount, Set<Integer> result) {
 
-		if (idx == number.length() - 1) {
-		
+		if (idx == number.length() - 1) {		
 		    if (cutCount == 0) return;
 		
 		    int product = 1;
 		    int start = 0;
 		
-		    for (int i = 0; i < cut.length; i++) {
-		
+		    for (int i = 0; i < cut.length; i++) {		
 		        if (cut[i]) {
 		            product *= Integer.parseInt(
 		                    number.substring(start, i + 1)
