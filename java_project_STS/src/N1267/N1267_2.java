@@ -1,7 +1,7 @@
 /*
  * swea 1267 작업순서
- * */
-
+ */
+package N1267;
 import java.io.*;
 import java.util.*;
 
