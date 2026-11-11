@@ -1,4 +1,5 @@
-import java.util.*;
+package swea.기타.월말평가;
+// import java.util.*;
 import java.io.*;
 public class Test2_황동현 {
     public static void main(String[] args) throws IOException{

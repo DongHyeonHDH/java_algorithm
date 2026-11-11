@@ -29,18 +29,22 @@ public class N11315Test {
 
             // 테스트 케이스마다 초기화
             String answer = "NO";
+            boolean found = false;
+
 
             // 맵 입력
             for (int i = 0; i < N; i++) {
 
                 String temp = br.readLine();
-
+                if(temp.contains("ooooo")){
+                    found = true;
+                    answer = "YES";                    
+                }
                 for (int j = 0; j < N; j++) {
                     gameMap[i][j] = temp.charAt(j);
                 }
             }
 
-            boolean found = false;
 
             // 모든 칸 검사
             for (int row = 0; row < N && !found; row++) {

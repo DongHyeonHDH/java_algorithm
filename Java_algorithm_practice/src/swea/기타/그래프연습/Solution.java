@@ -1,4 +1,4 @@
-package swea.그래프연습;
+package swea.기타.그래프연습;
 import java.io.*;
 import java.util.*;
 

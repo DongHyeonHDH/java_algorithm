@@ -27,7 +27,7 @@ public class J2469 {
 			S[cnt] = Integer.parseInt(st.nextToken());
 		}
 		
-		Arrays.sort(heights);		
+		Arrays.sort(heights);	
 		
 		Sorting();
 

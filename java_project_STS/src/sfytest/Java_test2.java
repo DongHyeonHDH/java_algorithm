@@ -2,6 +2,9 @@ package sfytest;
 import java.io.*;
 import java.util.*;
 
+import java.io.*;
+import java.util.*;
+
 public class Java_test2 {
 
     static int N, M;
