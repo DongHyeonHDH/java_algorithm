@@ -1,6 +1,7 @@
 /*
  * N7699 수지의 수지 맞는 여행
  * */
+package N7699;
 import java.io.*;
 import java.util.*;
 
