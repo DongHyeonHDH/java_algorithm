@@ -1,6 +1,6 @@
 package samsung25_2;
 /*
- * »ï¼º 2025 ÇÏ¹Ý±â ¿ÀÈÄ 2¹ø ¹®Á¦
+ * ì‚¼ì„± 2025 í•˜ë°˜ê¸° ì˜¤í›„ 2ë²ˆ ë¬¸ì œ
  */
 
 import java.io.*;
@@ -21,7 +21,8 @@ public class part2 {
 		N = Long.parseLong(st.nextToken());
 		M = Integer.parseInt(st.nextToken());
 		int max_lights = M;
-		lights = new LinkedList<>(); 
+		int number_light = M;
+		lights = new ArrayList<>(); 
 		for(int i = 1; i<= M; i++) {
 			lights.add(new Light(Long.parseLong(st.nextToken()),i));
 		}
@@ -29,72 +30,55 @@ public class part2 {
 		for(int i = 1; i< Q; i++) {
 			st = new StringTokenizer(br.readLine());
 			order = Integer.parseInt(st.nextToken());
-			//°¡·Îµî Ãß°¡
+			//ê°€ë¡œë“± ì¶”ê°€
 			if(order == 200) {
-				max_lights = add_light(max_lights);
-				 
-				for(int j = 0; j< max_lights; j++) {
-					System.out.print(lights.get(j).pos+ " ");
-				}
-				System.out.println();
+				max_lights = add_light(max_lights, number_light);
+				number_light +=1;				
 				
-				System.out.println("--------------");
-				
-				for(int j = 0; j< max_lights; j++) {
-					System.out.print(lights.get(j).code+ " ");
-				}
-				System.out.println();
 			}
 			
-			//°¡·Îµî Á¦°Å
+			//ê°€ë¡œë“± ì œê±°
 			else if(order == 300) {
-				//D¹ø °¡·Îµî Á¦°Å
+				//Dë²ˆ ê°€ë¡œë“± ì œê±°
 				if(lights.size() <= 2) continue;
 				else {
 					int D = Integer.parseInt(st.nextToken());
-					max_lights = delete_light(D, max_lights);
-				}					
+					max_lights = delete_light(D, lights.size());
+				}				
 				
-				for(int j = 0; j< max_lights; j++) {
-					System.out.print(lights.get(j).pos+ " ");
-				}
-				System.out.println();
 				
-				System.out.println("--------------");
-				
-				for(int j = 0; j< max_lights; j++) {
-					System.out.print(lights.get(j).code+ " ");
-				}
-				System.out.println();
 			}
-			//ÃÖ¼Ò Àü·Â °è»ê, ¸¶À» °Å¸® 1~NÀ» ÀüºÎ ¹àÈ÷±â À§ÇÑ ÃÖ¼Ò ¼ÒºñÀü·Â
+			//ìµœì†Œ ì „ë ¥ ê³„ì‚°, ë§ˆì„ ê±°ë¦¬ 1~Nì„ ì „ë¶€ ë°ížˆê¸° ìœ„í•œ ìµœì†Œ ì†Œë¹„ì „ë ¥
 			else if(order == 400) {
 				long r = calc_light();
 				sb.append(r).append("\n");								
 			}			
 			
 		}
-		System.out.println("-----------");
+		
 		System.out.println(sb);
 	}
 	
-	static int add_light(int count){
-		long maxNum = 0;
-		long lightPos = 0;
-		int front = 0;
-		int rear = 0;
+	static int add_light(int count, int number_light){
+		long maxNum = -1;		
+		int rear = 1;
 		for(int i = 0; i<count-1; i++) {
-			maxNum = Math.max(Math.abs(lights.get(i+1).pos - lights.get(i).pos), maxNum);
-			if(maxNum == Math.abs(lights.get(i+1).pos - lights.get(i).pos)) {
-				lightPos = (lights.get(i).pos + lights.get(i+1).pos) / 2;
-				front = i;
-				rear = i+1;				
+			long distance = lights.get(i+1).pos - lights.get(i).pos;
+			
+			if(distance > maxNum) {
+				maxNum = distance;
+				rear = i+1;
 			}
 		}
-		lights.add(rear , new Light(lightPos, count+1));
 		
+		
+		long left = lights.get(rear -1).pos;
+		long right = lights.get(rear).pos;
+		
+		long lightPos= left+(right - left +1)/2;
+		lights.add(rear, new Light(lightPos, number_light+1) );
 			
-		
+	
 		return count+1;
 	}
 	
@@ -102,24 +86,40 @@ public class part2 {
 		for(int i = 0; i<count; i++) {
 			if(lights.get(i).code == D) {
 				lights.remove(i);
+				return count -1;
 			}
 		}
 		
-		return count - 1;
+		return count;
 	}
 	
 	static long calc_light() {
 		long maxNum = 0;
-		
-		for(int i = 0; i<lights.size()-1; i++) {
-			maxNum = Math.max(lights.get(i+1).pos - lights.get(i).pos, maxNum);			
-		}
-		return maxNum;
+
+	    // ì‹œìž‘ì ë¶€í„° ì²« ê°€ë¡œë“±ê¹Œì§€
+	    maxNum = 2 * (lights.get(0).pos - 1);
+
+	    // ì¸ì ‘ ê°€ë¡œë“± ì‚¬ì´
+	    for (int i = 1; i < lights.size(); i++) {
+	        long distance = lights.get(i).pos
+	                      - lights.get(i - 1).pos;
+
+	        maxNum = Math.max(maxNum, distance);
+	    }
+
+	    // ë§ˆì§€ë§‰ ê°€ë¡œë“±ë¶€í„° ë§ˆì„ ëê¹Œì§€
+	    maxNum = Math.max(
+	        maxNum,
+	        2 * (N - lights.get(lights.size() - 1).pos)
+	    );
+
+	    return maxNum;
 	}
+	
 	static class Light{
-		//À§Ä¡, L
+		//ìœ„ì¹˜, L
 		Long pos;
-		//M °íÀ¯¹øÈ£
+		//M ê³ ìœ ë²ˆí˜¸
 		int code;
 		Light(Long pos, int code){
 			this.pos = pos;

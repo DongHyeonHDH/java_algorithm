@@ -51,12 +51,12 @@ public class chapter5_2_5 {
 			memo[0][i].minPoint = min;
 		}
 		
-		for(int i = 0; i< N; i++) {
-			for(int j = 0; j< N; j++) {
-				System.out.println(memo[i][j].maxPoint);
-			}
-			System.out.println();
-		}
+//		for(int i = 0; i< N; i++) {
+//			for(int j = 0; j< N; j++) {
+//				System.out.print(memo[i][j].minPoint+" ");
+//			}
+//			System.out.println();
+//		}
 		
 		//1,1에서 출발해서 N,N까지 도착했을 때 최댓값과 최솟값의 차이?
 		//최소가 가장 크고 최대가 가장 작은 경우 
@@ -64,19 +64,29 @@ public class chapter5_2_5 {
 		min = 100;
 		temp_min = 100;
 		temp_max = 0;
-		for(int i = 1; i< N-1; i++) {
-			for(int j = 1; j< N-1; j++) {
-				temp_max = Math.max(max, j);
-				max = Math.max(max, grid[i][j]);
+		for(int i = 1; i< N; i++) {
+			for(int j = 1; j< N; j++) {
+				temp_max = Math.min(memo[i-1][j].maxPoint, memo[i][j-1].maxPoint);
+				max = Math.max(temp_max, grid[i][j]);
 				memo[i][j].maxPoint = max;
-				min = Math.min(min, grid[i][j]);
+				
+				temp_min = Math.max(memo[i-1][j].minPoint, memo[i][j-1].minPoint);
+				min = Math.min(temp_min, grid[i][j]);
 				memo[i][j].minPoint = min;
 			}
 		}
+		
+//		for(int i = 0; i< N; i++) {
+//			for(int j = 0; j< N; j++) {
+//				System.out.print(memo[i][j].maxPoint - memo[i][j].minPoint+" ");
+//			}
+//			System.out.println();
+//		}
 
+		System.out.println(memo[N-1][N-1].maxPoint - memo[N-1][N-1].minPoint);
 	}
 	
-	public class Point{
+	static public class Point{
 		int maxPoint;
 		int minPoint;
 		
