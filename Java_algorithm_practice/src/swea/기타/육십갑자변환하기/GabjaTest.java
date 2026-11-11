@@ -1,7 +1,7 @@
-package swea.육십갑자변환하기;
+package swea.기타.육십갑자변환하기;
 
 import java.io.*;
-import java.util.*;
+
 
 /**
  * 60 갑자를 서양력으로 변환하는 프로그램

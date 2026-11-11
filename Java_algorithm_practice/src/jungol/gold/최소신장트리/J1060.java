@@ -70,8 +70,7 @@ public class J1060{
         }
 
         @Override
-        public int compareTo(Edge o) {
-            // TODO Auto-generated method stub
+        public int compareTo(Edge o) {            
             return Integer.compare(this.weight, o.weight);
         }        
     }

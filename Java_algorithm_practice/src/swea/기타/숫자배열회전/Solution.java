@@ -1,4 +1,4 @@
-package swea.숫자배열회전;
+package swea.기타.숫자배열회전;
 import java.util.*;
 import java.io.*;
 

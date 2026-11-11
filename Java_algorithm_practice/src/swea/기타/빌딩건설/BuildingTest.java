@@ -1,4 +1,4 @@
-package swea.빌딩건설;
+package swea.기타.빌딩건설;
 
 import java.io.*;
 import java.util.*;
