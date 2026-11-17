@@ -1,3 +1,10 @@
 /.metadata/
-.class
+
 java_project_STS/bin/
+
+# Java compiled files
+*.class
+
+# OS files
+.DS_Store
+Thumbs.db

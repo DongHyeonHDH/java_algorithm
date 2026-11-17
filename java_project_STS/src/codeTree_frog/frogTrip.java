@@ -49,46 +49,95 @@ public class frogTrip {
 		int minT= 0;		
 		visited = new boolean[N+1][N+1];
 		
-		
-		
-		minT = dfs(r1, c1, r2, c2, 0);
-		
-		
+		minT = djkstra(r1, c1, r2, c2);
 		
 		return minT;
 	}
 	
-	static int dfs(int r1, int c1, int r2, int c2, int preTime) {
-		int time = preTime;
-		if(r1 == r2 && c1 == c2) {		
-			time = Math.min(time, );
-			return time;
-		}
+	static int djkstra(int r1, int c1, int r2, int c2) {
 		
-		for(int i = 0; i<4; i++) {
-			int r = r1 + dr[i];
-			int c = c1 + dc[i];
-			
-			if(r <1 || r>N || c <1|| c>N) continue;
-			
-			if(visited[r][c] && gameMap[r][c] != '#') {
-				if(gameMap[r][c] == 'S') {
-					
-				}
-				else {
-					
+		
+		
+		while(!q.isEmpty()) {
+			for(int i = 0; i<4; i++) {
+				int r = r1 + dr[i];
+				int c = c1 + dc[i];
+				
+				if(r <1 || r>N || c <1|| c>N) continue;
+				
+				if(visited[r][c] && gameMap[r][c] != '#') {
+					if(gameMap[r][c] == 'S') {
+						
+					}
+					else {
+						
+					}				
 				}
 				
 			}
-			
 		}
+			
 		
-		
-		
-		
+			
 		
 		return 0;
 	}
-	
-	
+	//점프하는 길이를 반환
+	static int jumping(int row, int col, int dir) {
+		int prac = 0;
+		switch(dir) {
+			// 남쪽
+			case 0 :{				
+				for(int i = row; i<=N; i++) {
+					if(gameMap[i][col] == '.') {
+						break;						
+					}			
+					else {
+						prac++;
+					}
+					
+				}				
+				break;
+			}
+			// 북쪽
+			case 1 :{
+				for(int i = row; i>=0; i--) {
+					if(gameMap[i][col] == '.') {
+						break;						
+					}			
+					else {
+						prac++;
+					}
+					
+				}				
+				break;				
+			}
+			// 서쪽
+			case 2 :{
+				for(int i = col; i>=0; i--) {
+					if(gameMap[row][i] == '.') {
+						break;						
+					}
+					else {
+						prac++;
+					}
+				}				
+				break;
+			}
+			// 동쪽
+			case 3 :{
+				for(int i = 1; i<=N; i++) {
+					if(gameMap[row][i] == '.') {
+						break;						
+					}
+					else {
+						prac++;
+					}
+				}				
+				break;
+			}
+		}
+		
+		return prac;
+	}
 }
