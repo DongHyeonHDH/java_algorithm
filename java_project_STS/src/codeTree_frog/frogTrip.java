@@ -1,3 +1,7 @@
+/*
+ * 삼성 2025 상반기 오전 2번 
+ */
+
 package codeTree_frog;
 
 import java.io.*;
@@ -54,11 +58,21 @@ public class frogTrip {
 		return minT;
 	}
 	
+	static class Node{
+		int to;
+		int time;
+		
+		Node(int to, int time){
+			this.to = to;
+			this.time = time;
+		}
+	}
+	
 	static int djkstra(int r1, int c1, int r2, int c2) {
 		
+		PriorityQueue<Node> pq = new PriorityQueue<>();
 		
-		
-		while(!q.isEmpty()) {
+		while(!pq.isEmpty()) {
 			for(int i = 0; i<4; i++) {
 				int r = r1 + dr[i];
 				int c = c1 + dc[i];
@@ -67,7 +81,7 @@ public class frogTrip {
 				
 				if(visited[r][c] && gameMap[r][c] != '#') {
 					if(gameMap[r][c] == 'S') {
-						
+						 jumping(r,c,i);
 					}
 					else {
 						
@@ -75,16 +89,14 @@ public class frogTrip {
 				}
 				
 			}
-		}
-			
-		
-			
-		
+		}	
 		return 0;
 	}
 	//점프하는 길이를 반환
-	static int jumping(int row, int col, int dir) {
-		int prac = 0;
+	static Node jumping(int row, int col, int dir) {
+		//점프해야하는 거리 포함
+		int dist = 0;
+		Node cur;
 		switch(dir) {
 			// 남쪽
 			case 0 :{				
@@ -93,8 +105,9 @@ public class frogTrip {
 						break;						
 					}			
 					else {
-						prac++;
+						dist++;
 					}
+					
 					
 				}				
 				break;
@@ -106,7 +119,7 @@ public class frogTrip {
 						break;						
 					}			
 					else {
-						prac++;
+						dist++;
 					}
 					
 				}				
@@ -119,7 +132,7 @@ public class frogTrip {
 						break;						
 					}
 					else {
-						prac++;
+						dist++;
 					}
 				}				
 				break;
@@ -131,13 +144,14 @@ public class frogTrip {
 						break;						
 					}
 					else {
-						prac++;
+						dist++;
 					}
 				}				
 				break;
 			}
 		}
 		
-		return prac;
+		
+		return ;
 	}
 }
